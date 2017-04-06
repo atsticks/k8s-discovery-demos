@@ -1,0 +1,8 @@
+metadata:
+  labels:
+    expose: true
+
+spec:
+  ports:
+    - port: 8090
+      targetPort: 8090
