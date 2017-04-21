@@ -1,7 +1,13 @@
 package org.jacpfx.kube.controller;
 
 import io.fabric8.annotations.ServiceName;
-import java.time.Duration;
+import io.fabric8.kubernetes.api.model.EndpointSubset;
+import io.fabric8.kubernetes.api.model.EndpointsList;
+import io.fabric8.kubernetes.api.model.PodList;
+import java.util.List;
+import org.jacpfx.discovery.Endpoints;
+import org.jacpfx.discovery.Label;
+import org.jacpfx.discovery.Pods;
 import org.jacpfx.kube.entity.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -23,10 +29,16 @@ import reactor.core.publisher.Mono;
 public class FrontendController {
 
   @Value("${read-host}")
-  public   String readhost;
+  public String readhost;
 
   @ServiceName("read")
   private String service;
+
+  @Label(name = "visualize", labelValue = "true")
+  private Endpoints endpoints;
+
+  @Label(name = "hallo")
+  private Pods pods;
 
   @Autowired
   private WebClient client;
@@ -34,25 +46,53 @@ public class FrontendController {
 
   @GetMapping(path = "/users/{id}")
   public Mono<Person> get(@PathVariable("id") String uuid) {
-    System.out.println("FrontendController  call get");
     return this.client
-        .get().uri("http://"+ getHost() + "/api/users/{id}", uuid)
+        .get().uri("http://" + getHost() + "/api/users/{id}", uuid)
         .accept(MediaType.APPLICATION_JSON)
         .exchange()
-        .then(response -> response.bodyToMono(Person.class));
+        .flatMap(resp -> resp.bodyToMono(Person.class));
   }
 
   @GetMapping(path = "/users")
   public Flux<Person> getUsers() {
+    printEndpoints();
+    printPodList();
     return this.client
-        .get().uri("http://"+ getHost() + "/api/users")
+        .get().uri("http://" + getHost() + "/api/users")
         .accept(MediaType.APPLICATION_JSON)
         .exchange()
-        .flatMap(response -> response.bodyToFlux(Person.class));
+        .flatMapMany(response -> response.bodyToFlux(Person.class));
+  }
+
+  private void printEndpoints() {
+    final EndpointsList endpointsInNamespace = endpoints.getEndpoints();
+    endpointsInNamespace.getItems().forEach(item -> {
+      System.out.println("item: " + item.getMetadata().getName());
+      List<EndpointSubset> subsets = item.getSubsets();
+      subsets.forEach(sub -> {
+        System.out.println("subset: " + sub);
+        sub.getAddresses().forEach(add -> {
+          System.out.println("- address: " + add.getIp());
+        });
+        sub.getPorts().forEach(port -> {
+          System.out.println("- port: " + port.getPort());
+        });
+      });
+    });
+  }
+
+  private void printPodList() {
+    final PodList podlist = pods.getPods();
+    podlist.getItems().forEach(pod -> {
+      System.out.println("item: " + pod.getMetadata().getName());
+      pod.getMetadata().getAdditionalProperties().entrySet().forEach(entry -> {
+        System.out.println("key: "+entry.getKey()+" value:"+entry.getValue());
+      });
+    });
   }
 
   private String getHost() {
-    System.out.println("HOST: "+service);
-    return service!=null?service:readhost;
+    System.out.println("HOST: " + service);
+    return service != null ? service : readhost;
   }
 }

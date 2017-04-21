@@ -1,6 +1,7 @@
 metadata:
   labels:
     expose: true
+    visualize: "true"
 
 spec:
   ports:
