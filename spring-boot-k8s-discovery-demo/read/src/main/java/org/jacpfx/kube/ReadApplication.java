@@ -38,7 +38,7 @@ public class ReadApplication {
     );
 
     return args -> {
-      personRepository.deleteAll().thenMany(personRepository.save(people)).blockLast();
+      personRepository.deleteAll().thenMany(personRepository.saveAll(people)).blockLast();
     };
 
   }

@@ -25,7 +25,7 @@ public class ReadController {
   @GetMapping(path = "/users/{id}")
   public Mono<Person> get(@PathVariable("id") String uuid) {
     System.out.println("Read controller call get");
-    return repository.findOne(uuid);
+    return repository.findById(uuid);
   }
 
   @GetMapping(path = "/users")

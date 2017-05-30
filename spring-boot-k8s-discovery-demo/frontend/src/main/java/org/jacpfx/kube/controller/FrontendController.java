@@ -5,10 +5,9 @@ import io.fabric8.kubernetes.api.model.EndpointSubset;
 import io.fabric8.kubernetes.api.model.EndpointsList;
 import io.fabric8.kubernetes.api.model.PodList;
 import java.util.List;
-import org.jacpfx.discovery.Endpoints;
-import org.jacpfx.discovery.Label;
-import org.jacpfx.discovery.Pods;
+
 import org.jacpfx.kube.entity.Person;
+import jacpfx.discovery.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
@@ -33,6 +32,10 @@ public class FrontendController {
 
   @ServiceName("read")
   private String service;
+
+
+  @ServiceName("frontend")
+  private String service2;
 
   @Label(name = "visualize", labelValue = "true")
   private Endpoints endpoints;
