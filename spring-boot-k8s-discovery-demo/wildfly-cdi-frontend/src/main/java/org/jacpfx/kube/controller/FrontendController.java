@@ -11,6 +11,7 @@ import jacpfx.discovery.Label;
 import jacpfx.discovery.Pods;
 import java.util.List;
 import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;

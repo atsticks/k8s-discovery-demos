@@ -13,7 +13,7 @@ public class MainApp {
   public static void main(String[] args) throws Exception {
     Swarm swarm = new Swarm();
     JAXRSArchive deployment = ShrinkWrap.create(JAXRSArchive.class);
-    deployment.addAllDependencies().addPackage("org.jacpfx.kube.controller");
+    deployment.addAllDependencies().addPackage("org.jacpfx.kube.controller").addPackage("org.jacpfx.discovery.extension");
     swarm.start();
     swarm.deploy(deployment);
   }
