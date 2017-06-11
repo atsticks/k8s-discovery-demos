@@ -1,4 +1,4 @@
-package org.jacpfx.kube.controller;
+package org.jacpfx.kube.domain;
 
 /**
  * Created by amo on 04.04.17.

@@ -12,8 +12,13 @@ import org.wildfly.swarm.undertow.WARArchive;
 public class MainApp {
   public static void main(String[] args) throws Exception {
     Swarm swarm = new Swarm();
-    JAXRSArchive deployment = ShrinkWrap.create(JAXRSArchive.class);
-    deployment.addAllDependencies().addPackage("org.jacpfx.kube.controller").addPackage("org.jacpfx.discovery.extension");
+    WARArchive deployment = ShrinkWrap.create(WARArchive.class);
+    deployment.addAllDependencies().addClass(JaxRsActivator.class).
+        addPackage("org.jacpfx.kube.controller").
+        addPackage("org.jacpfx.kube").
+        addPackage("org.jacpfx.kube.service").
+        addPackage("org.jacpfx.kube.domain").
+        addPackage("org.jacpfx.discovery.extension");
     swarm.start();
     swarm.deploy(deployment);
   }

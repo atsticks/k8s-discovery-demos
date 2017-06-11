@@ -6,7 +6,7 @@
 	<groupId>org.jacpfx.kube</groupId>
 	<artifactId>wildfly-cdi-frontend</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 
 	<name>wildfly-cdi-frontend</name>
 	<description>Demo project for Spring Boot</description>
@@ -17,6 +17,7 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
 		<version.wildfly.swarm>1.0.2.Final</version.wildfly.swarm>
+		<failOnMissingWebXml>false</failOnMissingWebXml>
 	</properties>
 
 
@@ -48,11 +49,7 @@
 			<artifactId>jaxrs</artifactId>
 			<version>${version.wildfly.swarm}</version>
 		</dependency>
-		<dependency>
-			<groupId>org.jacpfx</groupId>
-			<artifactId>sek8sdiscovery</artifactId>
-			<version>1.0-SNAPSHOT</version>
-		</dependency>
+
 
 	</dependencies>
 
