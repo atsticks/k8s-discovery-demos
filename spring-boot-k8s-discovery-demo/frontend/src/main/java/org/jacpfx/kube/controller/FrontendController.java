@@ -7,7 +7,7 @@ import io.fabric8.kubernetes.api.model.PodList;
 import java.util.List;
 
 import org.jacpfx.kube.entity.Person;
-import jacpfx.discovery.*;
+import org.jacpfx.discovery.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
