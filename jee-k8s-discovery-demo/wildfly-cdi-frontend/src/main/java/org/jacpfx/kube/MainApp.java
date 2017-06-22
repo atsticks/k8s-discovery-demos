@@ -1,9 +1,10 @@
 package org.jacpfx.kube;
 
-import org.jacpfx.kube.controller.FrontendController;
+import javax.enterprise.inject.spi.Extension;
+import org.jacpfx.discovery.extension.K8SExtension;
+import org.jacpfx.kube.api.JaxRsActivator;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.wildfly.swarm.Swarm;
-import org.wildfly.swarm.jaxrs.JAXRSArchive;
 import org.wildfly.swarm.undertow.WARArchive;
 
 /**
@@ -11,14 +12,15 @@ import org.wildfly.swarm.undertow.WARArchive;
  */
 public class MainApp {
   public static void main(String[] args) throws Exception {
+    System.out.println("START MAIN::");
     Swarm swarm = new Swarm();
     WARArchive deployment = ShrinkWrap.create(WARArchive.class);
-    deployment.addAllDependencies().addClass(JaxRsActivator.class).
-        addPackage("org.jacpfx.kube.controller").
-        addPackage("org.jacpfx.kube").
-        addPackage("org.jacpfx.kube.service").
-        addPackage("org.jacpfx.kube.domain").
-        addPackage("org.jacpfx.discovery.extension");
+    deployment.
+        addAllDependencies().
+        addClass(JaxRsActivator.class).
+        addAsServiceProvider(Extension.class, K8SExtension.class).
+        addPackages(true,"org.jacpfx");
+    deployment.staticContent();
     swarm.start();
     swarm.deploy(deployment);
   }

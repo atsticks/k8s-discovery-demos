@@ -1,4 +1,4 @@
-package org.jacpfx.kube.domain;
+package org.jacpfx.kube.domain.model;
 
 /**
  * Created by amo on 04.04.17.

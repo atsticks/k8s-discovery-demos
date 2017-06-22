@@ -34,9 +34,6 @@ public class FrontendController {
   private String service;
 
 
-  @ServiceName("frontend")
-  private String service2;
-
   @Label(name = "visualize", labelValue = "true")
   private Endpoints endpoints;
 

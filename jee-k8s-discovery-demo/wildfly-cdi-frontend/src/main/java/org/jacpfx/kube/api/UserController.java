@@ -1,4 +1,4 @@
-package org.jacpfx.kube.controller;
+package org.jacpfx.kube.api;
 
 
 import java.util.List;
@@ -9,16 +9,16 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import org.jacpfx.kube.domain.Person;
-import org.jacpfx.kube.service.Userservice;
+import org.jacpfx.kube.domain.model.Person;
+import org.jacpfx.kube.domain.service.Userservice;
 
 
 /**
  * Created by amo on 04.04.17.
  */
 @ApplicationScoped
-@Path("/api")
-public class FrontendController {
+@Path("/users/{id}")
+public class UserController {
 
   @Inject
   private Userservice userservice;
@@ -26,18 +26,11 @@ public class FrontendController {
 
   @GET
   @Produces(MediaType.APPLICATION_JSON)
-  @Path("/users/{id}")
   public Person get(@PathParam("id") String uuid) {
 
     return userservice.get(uuid);
   }
 
-  @GET
-  @Produces(MediaType.APPLICATION_JSON)
-  @Path("/users")
-  public List<Person> getUsers() {
-    return userservice.getUsers();
-  }
 
 
 }
