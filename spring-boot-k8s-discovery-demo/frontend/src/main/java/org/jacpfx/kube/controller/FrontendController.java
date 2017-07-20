@@ -6,6 +6,7 @@ import io.fabric8.kubernetes.api.model.EndpointsList;
 import io.fabric8.kubernetes.api.model.PodList;
 import java.util.List;
 
+import org.jacpfx.discovery.annotation.Label;
 import org.jacpfx.kube.entity.Person;
 import org.jacpfx.discovery.*;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -15,16 +15,16 @@ import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import org.jacpfx.discovery.Endpoints;
-import org.jacpfx.discovery.Label;
 import org.jacpfx.discovery.Pods;
 import org.jacpfx.discovery.annotation.K8SDiscovery;
+import org.jacpfx.discovery.annotation.Label;
 import org.jacpfx.kube.domain.model.Person;
 import org.jacpfx.kube.domain.model.PersonWrapper;
 
 /**
  * Created by amo on 11.06.17.
  */
-@K8SDiscovery
+@K8SDiscovery(namespace = "myproject") //  if no user provided: oadm policy add-role-to-user view system:serviceaccount:myproject:default -n myproject
 @ApplicationScoped
 public class Userservice {
 

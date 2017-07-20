@@ -24,6 +24,7 @@ public class FrontendApplication {
 
   @Bean
   Fabric8DiscoveryPostProcessor processor() {
+    //  if no user provided: oadm policy add-role-to-user view system:serviceaccount:myproject:default -n myproject
     return new Fabric8DiscoveryPostProcessor();
   }
 
